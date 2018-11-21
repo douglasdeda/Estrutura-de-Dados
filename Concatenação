@@ -1,0 +1,62 @@
+echo "# Estrutura-de-Dados" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/douglasdeda/Estrutura-de-Dados.git
+git push -u origin master
+
+
+#include <stdio.h>
+
+struct reg 
+{
+    int conteudo;
+    struct reg *prox;
+};
+
+typedef struct reg celula;
+
+void concatena_r (celula *le, celula *li);
+
+int main(int argc, char const *argv[])
+{
+    celula c1, c2, c3;
+    celula s1, s2, s3;
+    celula *le, *li;
+
+    le = &c1;
+    c1.prox = &c2;
+    c2.prox = &c3;
+    c3.prox = NULL;
+
+    c1.conteudo = 1;
+    c2.conteudo = 2;
+    c3.conteudo = 3;
+
+    li = &s1;
+    s1.prox = &s2;
+    s2.prox = &s3;
+    s3.prox = NULL;
+
+    s1.conteudo = 4;
+    s2.conteudo = 5;
+    s3.conteudo = 6;
+
+    concatena_r(le, li);
+
+    return 0;
+}
+
+
+void concatena_r (celula *le, celula *li)
+{
+    if (le->prox == NULL)
+    {
+        le->prox = li;
+        return;
+    }
+    le = le->prox;
+    concatena_r (le, li);
+}
+    
+    
