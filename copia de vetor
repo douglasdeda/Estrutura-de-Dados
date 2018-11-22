@@ -1,0 +1,62 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+struct reg
+{
+    int conteudo;
+    struct reg *prox;
+};
+
+typedef struct reg celula;
+
+int main()
+{
+    celula *le;
+    le = malloc(sizeof (celula));
+    le->prox = NULL;
+
+    int v[] = {1, 2, 3, 4};
+
+    copia_vetor_r(v,3,le);
+    imprime (le->prox);
+
+    return 0;
+}
+
+void copia_vetor(int *v, celula *le)
+{
+    int i;
+    for (i=3; i>=0; i--)
+    {
+        insere(v[i], le);
+    }
+}
+
+void copia_vetor_r(int *v, int n, celula *le)
+{
+    if(n==0)
+    {
+        insere(v[n], le);
+        return;
+    }
+    insere(v[n],le);
+    copia_vetor_r(v, n-1, le);
+}
+
+void insere (int x, celula *le)
+{
+    celula *nova;
+    nova = malloc (sizeof (celula));
+    nova->conteudo = x;
+    nova->prox = le->prox;
+    le->prox = nova;
+}
+
+
+void imprime (celula *le)
+{
+    if (le == NULL) return;
+    printf ("%d\n", le->conteudo);
+    imprime (le->prox);
+
+}
