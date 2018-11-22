@@ -1,0 +1,60 @@
+#include <stdlib.h>
+#include <stdio.h>
+
+struct reg
+{
+    int conteudo;
+    struct reg *prox;
+};
+
+typedef struct reg celula;
+
+int main()
+{
+    celula c1, c2, c3, c4, c5;
+    celula *le, *p1, *p2;
+
+    le = &c1;
+    p1 = &c3;
+    p2 = &c4;
+
+    c1.prox = &c2;
+    c2.prox = &c3;
+    c3.prox = &c4;
+    c4.prox = &c5;
+    c5.prox = NULL;
+
+    c1.conteudo = 1;
+    c2.conteudo = 2;
+    c3.conteudo = 3;
+    c4.conteudo = 4;
+    c5.conteudo = 5;
+
+    troca(le,p1,p2);
+    imprime (le);
+
+    return 0;
+}
+
+
+void imprime (celula *le)
+{
+    if (le == NULL) return;
+    printf ("%d\n", le->conteudo);
+    imprime (le->prox);
+
+}
+
+void troca(celula *le, celula *p1, celula* p2)
+{
+    for(le = le; le !=NULL; le = le->prox)
+    {
+        if (le->prox == p1)
+        {
+            le->prox = p2;
+            p1->prox = p2->prox;
+            p2->prox = p1;
+            return;
+        }
+    }
+}
