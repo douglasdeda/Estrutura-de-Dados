@@ -1,0 +1,127 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct reg
+{
+	int conteudo;
+	struct reg *prox;
+};
+
+typedef struct reg celula;
+
+void compara (celula *le1, celula*le2);
+void compara_r (celula *le1, celula*le2);
+
+void imprime (celula *le);
+void imprime_sc (celula *le);
+
+void insere (int x, celula *le);
+celula * insere_sc (int x, celula *le);
+void insere_nf (int x, celula *le);
+
+int main ()
+{
+	celula *le;
+	
+	le = NULL;
+	
+	le = insere_sc(6, le);
+	le = insere_sc(5, le);
+	le = insere_sc(4, le);
+
+	imprime_sc(le);
+}
+
+void compara_r (celula *le1, celula*le2)
+{
+	
+	
+	if(le1 == NULL && le2 == NULL) return;
+	
+	if (le1->conteudo != le2->conteudo)
+	{
+		printf("nao sao iguais\n");
+		return;
+	}
+	compara(le1->prox, le2->prox);
+	return;
+}
+
+void compara (celula *le1, celula*le2)
+{
+	
+	while(le1 != NULL && le2 != NULL)
+	{		
+		if (le1->conteudo != le2->conteudo)
+		{
+			printf("nao sao iguais\n");
+			break;
+		}
+		
+		le1 = le1->prox;
+		le2 = le2->prox;
+	}
+	return;
+}   
+
+void insere (int x, celula *le)
+{
+	celula *nova;
+	nova = malloc(sizeof (celula));
+	nova->conteudo = x;
+	nova->prox = le->prox;
+	le->prox = nova;
+	return;
+}
+
+void insere_nf (int x, celula *le)
+{
+	celula *nova;
+	nova = malloc(sizeof (celula));
+	nova->conteudo = x;
+	
+	while(le != NULL)
+	{
+		if(le->prox == NULL)
+		{
+			le->prox = nova;
+			nova->prox = NULL;
+		}
+		le = le->prox;
+	}
+	return;
+}
+
+
+celula * insere_sc (int x, celula *le)
+{
+	celula *nova;
+	nova = malloc(sizeof (celula));
+	nova->conteudo = x;
+	nova->prox = le;
+	return nova;
+}
+
+void imprime_cc (celula *le)
+{
+	le = le->prox;
+	while(le != NULL)
+	{
+		printf("%d", le->conteudo);
+		le = le->prox;
+	}
+	return;
+}
+
+void imprime_sc (celula *le)
+{
+	while(le != NULL)
+	{
+		printf("%d", le->conteudo);
+		le = le->prox;
+	}
+	return;
+}
+
+
+
